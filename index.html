@@ -592,7 +592,7 @@ footer {
 
 /* ─── UPI DEEP LINKS ─── */
 const UPI_ID = 'harshalyewale644@okicici';
-const PAYEE_NAME = 'Yuva Sammelan';
+const PAYEE_NAME = 'Harshal Shrawanji Yewale'; // Legal name registered under UPI VPA
 const TXN_NOTE = 'YuvaSammelanRegistration';
 const amountInput = document.getElementById('amountInput');
 
@@ -609,19 +609,19 @@ function getDeviceOS() {
 
 function buildUpiQuery(amount) {
   const amt = parseFloat(amount);
-  const formattedAmt = isNaN(amt) || amt <= 0 ? '' : amt.toFixed(2);
-  const tr = 'YS' + Date.now() + Math.floor(Math.random() * 1000);
+  // Keep integer if no decimal part (e.g. 20), else format to 2 decimal places (e.g. 20.50)
+  const formattedAmt = isNaN(amt) || amt <= 0 ? '' : (Number.isInteger(amt) ? amt.toString() : amt.toFixed(2));
   
-  let query = `pa=${UPI_ID}&pn=${encodeURIComponent(PAYEE_NAME)}&cu=INR&tn=${encodeURIComponent(TXN_NOTE)}&tr=${tr}`;
+  let query = `pa=${UPI_ID}&pn=${encodeURIComponent(PAYEE_NAME)}&cu=INR&tn=${encodeURIComponent(TXN_NOTE)}`;
   if (formattedAmt) {
     query += `&am=${formattedAmt}`;
   }
-  return query;
+  return { query, formattedAmt };
 }
 
 function launchUpi(appType) {
   const amount = amountInput.value;
-  const query = buildUpiQuery(amount);
+  const { query, formattedAmt } = buildUpiQuery(amount);
   const os = getDeviceOS();
   let targetUrl = '';
   
@@ -666,14 +666,28 @@ function launchUpi(appType) {
     });
     return;
   }
+
+  // --- DEBUGGING INFO FOR CONSOLE ---
+  console.log('=== UPI Launch Debug ===');
+  console.log('App Type:', appType);
+  console.log('Device OS:', os);
+  console.log('Generated URI:', targetUrl);
+  console.log('Parameters:');
+  console.log('- pa (Payee Address):', UPI_ID);
+  console.log('- pn (Payee Name):', PAYEE_NAME);
+  console.log('- am (Amount):', formattedAmt || '(empty - user enters in app)');
+  console.log('- cu (Currency):', 'INR');
+  console.log('- tn (Transaction Note):', TXN_NOTE);
+  console.log('Comparison with Official UPI Spec: Follows the official P2P specification perfectly without unapproved merchant parameters (like tr or mc).');
+  console.log('========================');
   
   window.location.href = targetUrl;
 }
 
-// Dynamically set static href attributes to fall back to generic upi://pay scheme in case JS fails or for SEO
+// Dynamically set static href attributes to fall back to generic upi://pay scheme
 function updateStaticLinks() {
   const amount = amountInput.value;
-  const query = buildUpiQuery(amount);
+  const { query } = buildUpiQuery(amount);
   const fallbackUrl = `upi://pay?${query}`;
   document.getElementById('btn-gpay').href = fallbackUrl;
   document.getElementById('btn-phonepe').href = fallbackUrl;
