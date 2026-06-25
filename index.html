@@ -518,11 +518,11 @@ footer {
       </div>
 
       <div class="upi-buttons">
-        <a class="upi-btn gpay" id="btn-gpay" href="#">⬤ Google Pay</a>
-        <a class="upi-btn phonepe" id="btn-phonepe" href="#">⬤ PhonePe</a>
-        <a class="upi-btn paytm" id="btn-paytm" href="#">⬤ Paytm</a>
-        <a class="upi-btn bhim" id="btn-bhim" href="#">⬤ BHIM</a>
-        <a class="upi-btn any" id="btn-any" href="#">⬤ Pay via Any UPI App</a>
+        <a class="upi-btn gpay" id="btn-gpay" href="#" onclick="launchUpi('gpay'); return false;">⬤ Google Pay</a>
+        <a class="upi-btn phonepe" id="btn-phonepe" href="#" onclick="launchUpi('phonepe'); return false;">⬤ PhonePe</a>
+        <a class="upi-btn paytm" id="btn-paytm" href="#" onclick="launchUpi('paytm'); return false;">⬤ Paytm</a>
+        <a class="upi-btn bhim" id="btn-bhim" href="#" onclick="launchUpi('bhim'); return false;">⬤ BHIM</a>
+        <a class="upi-btn any" id="btn-any" href="#" onclick="launchUpi('any'); return false;">⬤ Pay via Any UPI App</a>
       </div>
 
       <div class="upi-id-box">
@@ -591,22 +591,98 @@ footer {
 })();
 
 /* ─── UPI DEEP LINKS ─── */
-const UPI_BASE = 'upi://pay?pa=harshalyewale644@okicici&pn=YuvaSammelan&cu=INR&tn=YuvaSammelanRegistration';
+const UPI_ID = 'harshalyewale644@okicici';
+const PAYEE_NAME = 'Yuva Sammelan';
+const TXN_NOTE = 'YuvaSammelanRegistration';
 const amountInput = document.getElementById('amountInput');
 
-function updateLinks() {
-  const amt = amountInput.value || '';
-  const suffix = amt ? '&am=' + encodeURIComponent(amt) : '';
-  const url = UPI_BASE + suffix;
-  document.getElementById('btn-gpay').href = url;
-  document.getElementById('btn-phonepe').href = url;
-  document.getElementById('btn-paytm').href = url;
-  document.getElementById('btn-bhim').href = url;
-  document.getElementById('btn-any').href = url;
-
+function getDeviceOS() {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  if (/android/i.test(userAgent)) {
+    return 'android';
+  }
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+    return 'ios';
+  }
+  return 'desktop';
 }
-amountInput.addEventListener('input', updateLinks);
-updateLinks();
+
+function buildUpiQuery(amount) {
+  const amt = parseFloat(amount);
+  const formattedAmt = isNaN(amt) || amt <= 0 ? '' : amt.toFixed(2);
+  const tr = 'YS' + Date.now() + Math.floor(Math.random() * 1000);
+  
+  let query = `pa=${UPI_ID}&pn=${encodeURIComponent(PAYEE_NAME)}&cu=INR&tn=${encodeURIComponent(TXN_NOTE)}&tr=${tr}`;
+  if (formattedAmt) {
+    query += `&am=${formattedAmt}`;
+  }
+  return query;
+}
+
+function launchUpi(appType) {
+  const amount = amountInput.value;
+  const query = buildUpiQuery(amount);
+  const os = getDeviceOS();
+  let targetUrl = '';
+  
+  if (os === 'android') {
+    switch (appType) {
+      case 'gpay':
+        targetUrl = `intent://pay?${query}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;
+        break;
+      case 'phonepe':
+        targetUrl = `intent://pay?${query}#Intent;scheme=upi;package=com.phonepe.app;end`;
+        break;
+      case 'paytm':
+        targetUrl = `intent://pay?${query}#Intent;scheme=upi;package=net.one97.paytm;end`;
+        break;
+      case 'bhim':
+        targetUrl = `intent://pay?${query}#Intent;scheme=upi;package=in.org.npci.upiapp;end`;
+        break;
+      default:
+        targetUrl = `upi://pay?${query}`;
+    }
+  } else if (os === 'ios') {
+    switch (appType) {
+      case 'gpay':
+        targetUrl = `gpay://upi/pay?${query}`;
+        break;
+      case 'phonepe':
+        targetUrl = `phonepe://upi/pay?${query}`;
+        break;
+      case 'paytm':
+        targetUrl = `paytmmp://upi/pay?${query}`;
+        break;
+      case 'bhim':
+        targetUrl = `bhim://upi/pay?${query}`;
+        break;
+      default:
+        targetUrl = `upi://pay?${query}`;
+    }
+  } else {
+    // Desktop: copy UPI ID and show alert
+    navigator.clipboard.writeText(UPI_ID).then(function() {
+      showToast('📋 UPI ID copied! Please use your mobile app to pay.');
+    });
+    return;
+  }
+  
+  window.location.href = targetUrl;
+}
+
+// Dynamically set static href attributes to fall back to generic upi://pay scheme in case JS fails or for SEO
+function updateStaticLinks() {
+  const amount = amountInput.value;
+  const query = buildUpiQuery(amount);
+  const fallbackUrl = `upi://pay?${query}`;
+  document.getElementById('btn-gpay').href = fallbackUrl;
+  document.getElementById('btn-phonepe').href = fallbackUrl;
+  document.getElementById('btn-paytm').href = fallbackUrl;
+  document.getElementById('btn-bhim').href = fallbackUrl;
+  document.getElementById('btn-any').href = fallbackUrl;
+}
+amountInput.addEventListener('input', updateStaticLinks);
+updateStaticLinks();
 
 /* ─── COPY UPI ID ─── */
 document.getElementById('copyBtn').addEventListener('click', function() {
