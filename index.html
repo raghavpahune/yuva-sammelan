@@ -355,6 +355,79 @@ section { padding: 4rem 1rem; }
   line-height: 1.5;
 }
 
+/* Warning / Info notice */
+.payment-warning {
+  background: rgba(232, 119, 34, 0.1);
+  border: 1px solid rgba(232, 119, 34, 0.35);
+  border-radius: 12px;
+  padding: 0.9rem;
+  font-size: 0.78rem;
+  color: #ffaa66;
+  text-align: left;
+  margin-bottom: 1.2rem;
+  line-height: 1.4;
+}
+.payment-warning strong {
+  color: #fff;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+/* QR Code Section */
+.qr-container {
+  display: none;
+  background: #fff;
+  padding: 1.2rem;
+  border-radius: 16px;
+  margin: 1.2rem 0;
+  color: #333;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  text-align: center;
+}
+.qr-container.show {
+  display: block;
+}
+.qr-container img {
+  width: 200px;
+  height: 200px;
+  display: block;
+  margin: 0 auto 0.8rem;
+  image-rendering: pixelated;
+}
+.qr-instructions {
+  font-size: 0.75rem;
+  color: #555;
+  line-height: 1.5;
+  text-align: left;
+  background: #f7f9fa;
+  padding: 0.8rem;
+  border-radius: 10px;
+  margin-top: 0.8rem;
+}
+.qr-instructions ol {
+  margin-left: 1.1rem;
+  margin-top: 0.3rem;
+}
+.qr-toggle-btn {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 12px;
+  background: rgba(200, 151, 42, 0.08);
+  border: 1px dashed var(--gold);
+  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: all 0.2s;
+}
+.qr-toggle-btn:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+
 
 /* Toast */
 .toast {
@@ -517,12 +590,34 @@ footer {
         </div>
       </div>
 
+      <div class="payment-warning">
+        <strong>⚠️ UPI Security Note:</strong>
+        Directly launching payment apps from a mobile web browser can fail with a <em>"limit exceeded"</em> or <em>"technical error"</em> for P2P personal accounts on several major banks (like SBI). 
+        <br><br>
+        If your payment fails inside the app, please use the <strong>QR Code</strong> or <strong>Copy UPI ID</strong> fallback options below.
+      </div>
+
       <div class="upi-buttons">
         <a class="upi-btn gpay" id="btn-gpay" href="#" onclick="launchUpi('gpay'); return false;">⬤ Google Pay</a>
         <a class="upi-btn phonepe" id="btn-phonepe" href="#" onclick="launchUpi('phonepe'); return false;">⬤ PhonePe</a>
         <a class="upi-btn paytm" id="btn-paytm" href="#" onclick="launchUpi('paytm'); return false;">⬤ Paytm</a>
         <a class="upi-btn bhim" id="btn-bhim" href="#" onclick="launchUpi('bhim'); return false;">⬤ BHIM</a>
         <a class="upi-btn any" id="btn-any" href="#" onclick="launchUpi('any'); return false;">⬤ Pay via Any UPI App</a>
+      </div>
+
+      <button class="qr-toggle-btn" id="qrToggleBtn" onclick="toggleQr(); return false;">📲 Show Payment QR Code</button>
+
+      <div class="qr-container" id="qrContainer">
+        <img id="upiQr" alt="UPI QR Code" src="">
+        <div class="qr-instructions">
+          <strong>How to Pay using QR:</strong>
+          <ol>
+            <li>Take a screenshot of the QR code above.</li>
+            <li>Open Google Pay, PhonePe, Paytm, or BHIM.</li>
+            <li>Tap <strong>"Scan QR"</strong> and select <strong>"Upload from Gallery"</strong> (the photo icon).</li>
+            <li>Select the screenshot to instantly fill the UPI ID and amount securely.</li>
+          </ol>
+        </div>
       </div>
 
       <div class="upi-id-box">
@@ -684,19 +779,34 @@ function launchUpi(appType) {
   window.location.href = targetUrl;
 }
 
-// Dynamically set static href attributes to fall back to generic upi://pay scheme
+// Dynamically set static href attributes to fall back to generic upi://pay scheme and update QR Code
 function updateStaticLinks() {
   const amount = amountInput.value;
   const { query } = buildUpiQuery(amount);
-  const fallbackUrl = `upi://pay?${query}`;
-  document.getElementById('btn-gpay').href = fallbackUrl;
-  document.getElementById('btn-phonepe').href = fallbackUrl;
-  document.getElementById('btn-paytm').href = fallbackUrl;
-  document.getElementById('btn-bhim').href = fallbackUrl;
-  document.getElementById('btn-any').href = fallbackUrl;
+  const actualUrl = `upi://pay?${query}`;
+  document.getElementById('btn-gpay').href = actualUrl;
+  document.getElementById('btn-phonepe').href = actualUrl;
+  document.getElementById('btn-paytm').href = actualUrl;
+  document.getElementById('btn-bhim').href = actualUrl;
+  document.getElementById('btn-any').href = actualUrl;
+  
+  // Update QR Code image source dynamically
+  document.getElementById('upiQr').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(actualUrl)}`;
 }
 amountInput.addEventListener('input', updateStaticLinks);
 updateStaticLinks();
+
+function toggleQr() {
+  const container = document.getElementById('qrContainer');
+  const btn = document.getElementById('qrToggleBtn');
+  if (container.classList.contains('show')) {
+    container.classList.remove('show');
+    btn.textContent = '📲 Show Payment QR Code';
+  } else {
+    container.classList.add('show');
+    btn.textContent = '🙈 Hide Payment QR Code';
+  }
+}
 
 /* ─── COPY UPI ID ─── */
 document.getElementById('copyBtn').addEventListener('click', function() {
