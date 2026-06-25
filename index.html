@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>युवा सम्मेलन 2026 | Yuva Sammelan — RSS Kharbi Nagar, Nagpur</title>
+<meta name="description" content="युवा सम्मेलन — 5 जुलाई 2026, श्री समर्थ लॉन, खरबी नागपुर। राष्ट्रीय स्वयंसेवक संघ द्वारा आयोजित युवा महासम्मेलन। Register now!">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --saffron: #E87722;
+  --navy: #1a2744;
+  --navy-deep: #0f1a2e;
+  --gold: #C8972A;
+  --white: #f5f5f5;
+  --card-bg: rgba(255,255,255,0.06);
+  --font-hi: 'Tiro Devanagari Hindi', serif;
+  --font-en: 'Inter', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-en);
+  background: var(--navy-deep);
+  color: var(--white);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ─── HERO ─── */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1rem;
+  overflow: hidden;
+}
+#particleCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Om symbol */
+.om {
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  color: var(--saffron);
+  text-shadow: 0 0 30px rgba(232,119,34,.6), 0 0 60px rgba(232,119,34,.3);
+  animation: floatUp 3.5s ease-in-out infinite, omGlow 4s ease-in-out infinite alternate;
+  z-index: 2;
+  position: relative;
+}
+@keyframes omGlow {
+  0% { text-shadow: 0 0 20px rgba(232,119,34,.5), 0 0 40px rgba(232,119,34,.2); }
+  100% { text-shadow: 0 0 40px rgba(232,119,34,.8), 0 0 80px rgba(232,119,34,.4), 0 0 120px rgba(200,151,42,.2); }
+}
+
+/* Flags */
+.flag-wrap { position: absolute; top: 10%; z-index: 1; }
+.flag-wrap.left { left: 3%; }
+.flag-wrap.right { right: 3%; }
+.flag {
+  width: 40px; height: 60px;
+  background: linear-gradient(135deg, var(--saffron), #f4a041);
+  border-radius: 0 6px 6px 0;
+  position: relative;
+  animation: wave 2.5s ease-in-out infinite;
+  transform-origin: left center;
+}
+.flag::before {
+  content: '';
+  position: absolute; left: -4px; top: -8px;
+  width: 4px; height: calc(100% + 16px);
+  background: #888;
+  border-radius: 2px;
+}
+.flag-wrap.right .flag { animation-delay: .4s; border-radius: 6px 0 0 6px; transform-origin: right center; }
+.flag-wrap.right .flag::before { left: auto; right: -4px; }
+@keyframes wave {
+  0%,100% { transform: skewY(0deg) scaleX(1); }
+  25% { transform: skewY(-3deg) scaleX(.95); }
+  75% { transform: skewY(3deg) scaleX(.97); }
+}
+
+.hero-content { position: relative; z-index: 2; }
+
+.shatabdi {
+  font-family: var(--font-en);
+  font-size: clamp(.7rem, 2vw, .9rem);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: .5rem;
+  opacity: .85;
+}
+.event-title {
+  font-family: var(--font-hi);
+  font-size: clamp(2.8rem, 10vw, 6rem);
+  font-weight: 400;
+  color: var(--white);
+  text-shadow: 0 0 20px rgba(232,119,34,.3);
+  animation: floatUp 4s ease-in-out infinite;
+  line-height: 1.2;
+}
+.tagline {
+  font-family: var(--font-hi);
+  font-size: clamp(1rem, 3.5vw, 1.5rem);
+  color: var(--gold);
+  margin: 1rem 0 .3rem;
+  animation: floatUp 4s ease-in-out infinite .3s;
+}
+.organizer {
+  font-size: clamp(.75rem, 2vw, .95rem);
+  color: rgba(255,255,255,.6);
+  margin-bottom: 2rem;
+}
+
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: .9rem 2.5rem;
+  font-family: var(--font-en);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  background: linear-gradient(135deg, var(--saffron), var(--gold));
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .25s, box-shadow .25s;
+  box-shadow: 0 4px 25px rgba(232,119,34,.4);
+  letter-spacing: .5px;
+}
+.cta-btn:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 8px 35px rgba(232,119,34,.55); }
+
+/* ─── EVENT INFO BAR ─── */
+#info-bar {
+  background: linear-gradient(135deg, var(--saffron), #d06a1a);
+  padding: 1.5rem 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  text-align: center;
+}
+.info-item { display: flex; flex-direction: column; align-items: center; gap: .3rem; }
+.info-icon { font-size: 1.6rem; }
+.info-label { font-size: .75rem; text-transform: uppercase; letter-spacing: 2px; opacity: .85; }
+.info-value { font-size: 1.1rem; font-weight: 700; }
+
+/* ─── SECTION COMMON ─── */
+section { padding: 4rem 1rem; }
+.section-title {
+  text-align: center;
+  font-family: var(--font-hi);
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  color: var(--saffron);
+  margin-bottom: .5rem;
+}
+.section-subtitle {
+  text-align: center;
+  font-size: .9rem;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 2.5rem;
+}
+.container { max-width: 960px; margin: 0 auto; }
+
+/* ─── ABOUT ─── */
+#about { background: var(--navy); }
+.about-text {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  font-size: .95rem;
+  color: rgba(255,255,255,.75);
+  line-height: 1.8;
+}
+.about-text .hi { font-family: var(--font-hi); font-size: 1.05rem; }
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.2rem;
+}
+.card {
+  background: var(--card-bg);
+  border: 1px solid rgba(232,119,34,.15);
+  border-radius: 16px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  transition: transform .3s, box-shadow .3s;
+  animation: floatCard 5s ease-in-out infinite;
+}
+.card:nth-child(2) { animation-delay: .4s; }
+.card:nth-child(3) { animation-delay: .8s; }
+.card:nth-child(4) { animation-delay: 1.2s; }
+.card:nth-child(5) { animation-delay: 1.6s; }
+.card:nth-child(6) { animation-delay: 2s; }
+@keyframes floatCard {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.card:hover { transform: translateY(-12px) !important; box-shadow: 0 12px 40px rgba(232,119,34,.2); }
+.card-icon { font-size: 2rem; margin-bottom: .6rem; }
+.card-label { font-size: .82rem; font-weight: 600; color: var(--gold); }
+
+/* ─── REGISTRATION FLOW ─── */
+#registration { background: var(--navy-deep); }
+.steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.step {
+  flex: 1;
+  min-width: 180px;
+  text-align: center;
+  padding: 1rem;
+  position: relative;
+}
+.step-num {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--saffron), var(--gold));
+  color: var(--navy);
+  font-weight: 800;
+  font-size: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: .8rem;
+  box-shadow: 0 4px 20px rgba(232,119,34,.35);
+}
+.step-title { font-weight: 700; font-size: .9rem; margin-bottom: .3rem; }
+.step-desc { font-size: .78rem; color: rgba(255,255,255,.55); }
+.step-connector {
+  position: absolute;
+  top: 34px;
+  right: -20px;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--saffron), transparent);
+}
+.step:last-child .step-connector { display: none; }
+@media (max-width: 600px) {
+  .step-connector { display: none; }
+}
+
+/* ─── PAYMENT ─── */
+#payment { background: var(--navy); }
+.payment-box {
+  max-width: 480px;
+  margin: 0 auto;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(232,119,34,.2);
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+.amount-group { margin-bottom: 1.5rem; }
+.amount-group label {
+  display: block;
+  font-size: .85rem;
+  color: rgba(255,255,255,.6);
+  margin-bottom: .5rem;
+}
+.amount-input-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .3rem;
+}
+.rupee-sign { font-size: 1.8rem; font-weight: 700; color: var(--saffron); }
+#amountInput {
+  width: 140px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--saffron);
+  color: var(--white);
+  text-align: center;
+  padding: .3rem;
+  font-family: var(--font-en);
+  outline: none;
+}
+#amountInput:focus { border-color: var(--gold); }
+
+.upi-buttons { display: flex; flex-direction: column; gap: .7rem; margin-bottom: 1.5rem; }
+.upi-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  padding: .8rem 1.2rem;
+  border-radius: 12px;
+  font-family: var(--font-en);
+  font-size: .9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  text-decoration: none;
+  color: #fff;
+}
+.upi-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.3); }
+.upi-btn.gpay { background: linear-gradient(135deg, #4285f4, #34a853); }
+.upi-btn.phonepe { background: linear-gradient(135deg, #5f259f, #7b3fb5); }
+.upi-btn.paytm { background: linear-gradient(135deg, #00baf2, #0288d1); }
+.upi-btn.bhim { background: linear-gradient(135deg, #00695c, #00897b); }
+.upi-btn.any { background: linear-gradient(135deg, var(--saffron), var(--gold)); color: var(--navy); }
+
+.upi-id-box {
+  background: rgba(0,0,0,.25);
+  border: 1px dashed rgba(232,119,34,.35);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.upi-id-label { font-size: .75rem; color: rgba(255,255,255,.5); margin-bottom: .3rem; }
+.upi-id-val { font-size: 1rem; font-weight: 600; color: var(--gold); word-break: break-all; }
+.copy-btn {
+  margin-top: .5rem;
+  padding: .4rem 1.2rem;
+  font-size: .78rem;
+  font-weight: 600;
+  background: transparent;
+  border: 1px solid var(--saffron);
+  color: var(--saffron);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.copy-btn:hover { background: var(--saffron); color: var(--navy); }
+.payment-note {
+  font-size: .78rem;
+  color: rgba(255,255,255,.45);
+  margin-top: .8rem;
+  line-height: 1.5;
+}
+
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--saffron);
+  color: var(--navy);
+  padding: .7rem 1.5rem;
+  border-radius: 10px;
+  font-size: .85rem;
+  font-weight: 600;
+  z-index: 9999;
+  opacity: 0;
+  transition: transform .35s, opacity .35s;
+  pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--navy-deep);
+  border-top: 1px solid rgba(232,119,34,.15);
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+.footer-slogan {
+  font-family: var(--font-hi);
+  font-size: clamp(.95rem, 3vw, 1.2rem);
+  color: var(--gold);
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.8;
+}
+.footer-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.wa-btn, .share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .7rem 1.4rem;
+  border-radius: 50px;
+  font-size: .85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform .2s;
+}
+.wa-btn { background: #25d366; color: #fff; }
+.share-btn { background: transparent; border: 1px solid var(--saffron); color: var(--saffron); }
+.wa-btn:hover, .share-btn:hover { transform: translateY(-2px); }
+.footer-copy { margin-top: 1.5rem; font-size: .7rem; color: rgba(255,255,255,.3); }
+
+/* ─── Responsive tweaks ─── */
+@media (max-width: 600px) {
+  .flag-wrap { display: none; }
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .payment-box { padding: 1.5rem 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="particleCanvas"></canvas>
+  <div class="flag-wrap left"><div class="flag"></div></div>
+  <div class="flag-wrap right"><div class="flag"></div></div>
+
+  <div class="hero-content">
+    <div class="om">ॐ</div>
+    <p class="shatabdi">शताब्दी वर्ष · 1925 – 2025</p>
+    <h1 class="event-title">युवा सम्मेलन</h1>
+    <p class="tagline">युवा जागेगा – भारत आगे बढ़ेगा!</p>
+    <p class="organizer">राष्ट्रीय स्वयंसेवक संघ — खरबी नागपुर</p>
+    <a href="#payment" class="cta-btn">Register &amp; Pay Now ⟶</a>
+  </div>
+</section>
+
+<!-- INFO BAR -->
+<div id="info-bar">
+  <div class="info-item">
+    <span class="info-icon">📅</span>
+    <span class="info-label">Date</span>
+    <span class="info-value">5 July 2026, Sunday</span>
+  </div>
+  <div class="info-item">
+    <span class="info-icon">🕔</span>
+    <span class="info-label">Time</span>
+    <span class="info-value">5:00 PM</span>
+  </div>
+  <div class="info-item">
+    <span class="info-icon">📍</span>
+    <span class="info-label">Venue</span>
+    <span class="info-value">श्री समर्थ लॉन, खरबी नागपुर</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">कार्यक्रम विवरण</h2>
+    <p class="section-subtitle">About the Event</p>
+    <div class="about-text">
+      <p class="hi">शताब्दी वर्ष के उपलक्ष में खरबी नागपुर शाखा द्वारा आयोजित <strong>युवा सम्मेलन</strong> — 16 से 35 वर्ष के युवाओं के लिए एक प्रेरणादायक महासम्मेलन। आइए, राष्ट्र निर्माण की दिशा में एक कदम बढ़ाएँ।</p>
+      <br>
+      <p>Join hundreds of youth at this landmark gathering organized by RSS Kharbi Nagar, Nagpur — celebrating the Shatabdi Varsh with energy, purpose, and national pride.</p>
+    </div>
+
+    <h3 style="text-align:center; color:var(--gold); font-size:.9rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:1.2rem;">What You Will Experience</h3>
+    <div class="cards-grid">
+      <div class="card"><div class="card-icon">🎙️</div><div class="card-label">Inspirational Talks</div></div>
+      <div class="card"><div class="card-icon">💬</div><div class="card-label">Youth Dialogue</div></div>
+      <div class="card"><div class="card-icon">🏃</div><div class="card-label">Sports &amp; Energy</div></div>
+      <div class="card"><div class="card-icon">🇮🇳</div><div class="card-label">National Pride</div></div>
+      <div class="card"><div class="card-icon">🌱</div><div class="card-label">Personality Growth</div></div>
+      <div class="card"><div class="card-icon">🤝</div><div class="card-label">New Friends &amp; Direction</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTRATION FLOW -->
+<section id="registration">
+  <div class="container">
+    <h2 class="section-title">कैसे करें पंजीकरण?</h2>
+    <p class="section-subtitle">3 Simple Steps</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-connector"></div>
+        <div class="step-title">Fill Details</div>
+        <div class="step-desc">Share your name, age &amp; contact below</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-connector"></div>
+        <div class="step-title">Pay via UPI</div>
+        <div class="step-desc">Tap any UPI button to complete payment</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Get Confirmation</div>
+        <div class="step-desc">Screenshot payment &amp; send on WhatsApp</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section id="payment">
+  <div class="container">
+    <h2 class="section-title">भुगतान करें</h2>
+    <p class="section-subtitle">Complete Your Payment</p>
+
+    <div class="payment-box">
+      <div class="amount-group">
+        <label for="amountInput">Enter Amount (₹)</label>
+        <div class="amount-input-wrap">
+          <span class="rupee-sign">₹</span>
+          <input type="number" id="amountInput" value="100" min="1" inputmode="numeric">
+        </div>
+      </div>
+
+      <div class="upi-buttons">
+        <a class="upi-btn gpay" id="btn-gpay" href="#">⬤ Google Pay</a>
+        <a class="upi-btn phonepe" id="btn-phonepe" href="#">⬤ PhonePe</a>
+        <a class="upi-btn paytm" id="btn-paytm" href="#">⬤ Paytm</a>
+        <a class="upi-btn bhim" id="btn-bhim" href="#">⬤ BHIM</a>
+        <a class="upi-btn any" id="btn-any" href="#">⬤ Pay via Any UPI App</a>
+      </div>
+
+      <div class="upi-id-box">
+        <div class="upi-id-label">Or pay manually to UPI ID</div>
+        <div class="upi-id-val" id="upiIdDisplay">harshalyewale644@okicici</div>
+        <button class="copy-btn" id="copyBtn">📋 Copy UPI ID</button>
+      </div>
+
+      <p class="payment-note">📸 Screenshot your payment and send to WhatsApp for confirmation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-slogan">जोश भी हमारा, दिशा भी हमारी,<br>लक्ष्य है – शक्तिशाली भारत हमारा!</p>
+  <div class="footer-actions">
+    <a class="wa-btn" href="https://wa.me/?text=%E0%A4%AF%E0%A5%81%E0%A4%B5%E0%A4%BE+%E0%A4%B8%E0%A4%AE%E0%A5%8D%E0%A4%AE%E0%A5%87%E0%A4%B2%E0%A4%A8+5+%E0%A4%9C%E0%A5%81%E0%A4%B2%E0%A4%BE%E0%A4%88+2026+%E0%A4%B6%E0%A5%8D%E0%A4%B0%E0%A5%80+%E0%A4%B8%E0%A4%AE%E0%A4%B0%E0%A5%8D%E0%A4%A5+%E0%A4%B2%E0%A5%89%E0%A4%A8+%E0%A4%A8%E0%A4%BE%E0%A4%97%E0%A4%AA%E0%A5%81%E0%A4%B0" target="_blank" rel="noopener">💬 Share on WhatsApp</a>
+    <a class="share-btn" href="#hero">↑ Back to Top</a>
+  </div>
+  <p class="footer-copy">© 2026 RSS Kharbi Nagar, Nagpur · युवा सम्मेलन</p>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ─── PARTICLES ─── */
+(function() {
+  const c = document.getElementById('particleCanvas');
+  const ctx = c.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = c.width = c.parentElement.clientWidth;
+    H = c.height = c.parentElement.clientHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function Particle() {
+    this.x = Math.random() * W;
+    this.y = H + Math.random() * 40;
+    this.r = Math.random() * 2.5 + 1;
+    this.speed = Math.random() * 1.2 + .4;
+    this.opacity = Math.random() * .6 + .2;
+    this.drift = (Math.random() - .5) * .3;
+  }
+
+  for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(232,119,34,${p.opacity})`;
+      ctx.fill();
+      p.y -= p.speed;
+      p.x += p.drift;
+      if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ─── UPI DEEP LINKS ─── */
+const UPI_BASE = 'upi://pay?pa=harshalyewale644@okicici&pn=YuvaSammelan&cu=INR&tn=YuvaSammelanRegistration';
+const amountInput = document.getElementById('amountInput');
+
+function updateLinks() {
+  const amt = amountInput.value || '';
+  const suffix = amt ? '&am=' + encodeURIComponent(amt) : '';
+  const url = UPI_BASE + suffix;
+  document.getElementById('btn-gpay').href = url;
+  document.getElementById('btn-phonepe').href = url;
+  document.getElementById('btn-paytm').href = url;
+  document.getElementById('btn-bhim').href = url;
+  document.getElementById('btn-any').href = url;
+
+}
+amountInput.addEventListener('input', updateLinks);
+updateLinks();
+
+/* ─── COPY UPI ID ─── */
+document.getElementById('copyBtn').addEventListener('click', function() {
+  navigator.clipboard.writeText('harshalyewale644@okicici').then(function() {
+    showToast('✅ UPI ID copied!');
+  });
+});
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2200);
+}
+</script>
+</body>
+</html>
