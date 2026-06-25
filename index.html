@@ -1059,21 +1059,12 @@ footer {
     <p class="section-subtitle reveal">UPI से सहयोग राशि भेजें</p>
 
     <div class="payment-box reveal">
-      <div class="amount-group">
-        <label for="amountInput">राशि दर्ज करें (₹)</label>
-        <div class="amount-input-wrap">
-          <span class="rupee-sign">₹</span>
-          <input type="number" id="amountInput" value="100" min="1" inputmode="numeric">
-        </div>
-        <div class="amount-error" id="amountError"></div>
-      </div>
+      <p style="font-family:var(--font-hi);font-size:.9rem;color:rgba(255,255,255,.6);margin-bottom:1.4rem;">
+        नीचे QR कोड स्कैन करें और किसी भी UPI App से भुगतान करें
+      </p>
 
-      <div class="upi-buttons">
-        <a class="upi-btn gpay"    id="btn-gpay"    href="#" onclick="launchUpi('gpay');    return false;">⬤ Google Pay</a>
-        <a class="upi-btn phonepe" id="btn-phonepe" href="#" onclick="launchUpi('phonepe'); return false;">⬤ PhonePe</a>
-        <a class="upi-btn paytm"   id="btn-paytm"   href="#" onclick="launchUpi('paytm');   return false;">⬤ Paytm</a>
-        <a class="upi-btn bhim"    id="btn-bhim"    href="#" onclick="launchUpi('bhim');    return false;">⬤ BHIM</a>
-        <a class="upi-btn any"     id="btn-any"     href="#" onclick="launchUpi('any');     return false;">⬤ किसी भी UPI App से</a>
+      <div class="qr-canvas-wrap" style="margin:0 auto 1.4rem;">
+        <div id="qr-upi-payment"></div>
       </div>
 
       <div class="upi-id-box">
@@ -1192,6 +1183,8 @@ const FORM_LINK  = 'https://forms.gle/JCmyZ7UT7n9wDDo46';
   }
   makeQR('qr-maps', MAPS_LINK);
   makeQR('qr-form', FORM_LINK);
+  // UPI payment QR — no amount so user enters it in their app
+  makeQR('qr-upi-payment', `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(PAYEE_NAME)}&cu=INR`);
 })();
 
 /* ─── SCROLL REVEAL ─── */
