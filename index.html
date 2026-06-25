@@ -707,7 +707,7 @@ function buildUpiQuery(amount) {
   // Keep integer if no decimal part (e.g. 20), else format to 2 decimal places (e.g. 20.50)
   const formattedAmt = isNaN(amt) || amt <= 0 ? '' : (Number.isInteger(amt) ? amt.toString() : amt.toFixed(2));
   
-  let query = `pa=${UPI_ID}&pn=${encodeURIComponent(PAYEE_NAME)}&cu=INR&tn=${encodeURIComponent(TXN_NOTE)}`;
+  let query = `pa=${UPI_ID}&pn=${encodeURIComponent(PAYEE_NAME)}&cu=INR`;
   if (formattedAmt) {
     query += `&am=${formattedAmt}`;
   }
@@ -721,22 +721,8 @@ function launchUpi(appType) {
   let targetUrl = '';
   
   if (os === 'android') {
-    switch (appType) {
-      case 'gpay':
-        targetUrl = `intent://pay?${query}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;
-        break;
-      case 'phonepe':
-        targetUrl = `intent://pay?${query}#Intent;scheme=upi;package=com.phonepe.app;end`;
-        break;
-      case 'paytm':
-        targetUrl = `intent://pay?${query}#Intent;scheme=upi;package=net.one97.paytm;end`;
-        break;
-      case 'bhim':
-        targetUrl = `intent://pay?${query}#Intent;scheme=upi;package=in.org.npci.upiapp;end`;
-        break;
-      default:
-        targetUrl = `upi://pay?${query}`;
-    }
+    // Standard upi://pay scheme is the most compatible on Android and avoids unverified browser intent blocks
+    targetUrl = `upi://pay?${query}`;
   } else if (os === 'ios') {
     switch (appType) {
       case 'gpay':
@@ -772,8 +758,7 @@ function launchUpi(appType) {
   console.log('- pn (Payee Name):', PAYEE_NAME);
   console.log('- am (Amount):', formattedAmt || '(empty - user enters in app)');
   console.log('- cu (Currency):', 'INR');
-  console.log('- tn (Transaction Note):', TXN_NOTE);
-  console.log('Comparison with Official UPI Spec: Follows the official P2P specification perfectly without unapproved merchant parameters (like tr or mc).');
+  console.log('Comparison with Official UPI Spec: Stripped to minimal required fields (pa, pn, am, cu) to resolve bank filters.');
   console.log('========================');
   
   window.location.href = targetUrl;
