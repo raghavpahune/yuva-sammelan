@@ -1282,20 +1282,40 @@ amountInput.addEventListener('input', updateLinks);
 updateLinks();
 
 /* ─── COPY UPI — checkmark micro-animation ─── */
-document.getElementById('copyBtn').addEventListener('click', function(){
-  navigator.clipboard.writeText(UPI_ID).then(function(){
-    const icon = document.getElementById('copyIcon');
-    const text = document.getElementById('copyText');
-    const btn  = document.getElementById('copyBtn');
-    btn.classList.add('copied');
-    icon.textContent = '✅';
-    text.textContent = 'कॉपी हो गई!';
-    setTimeout(function(){
-      btn.classList.remove('copied');
-      icon.textContent = '📋';
-      text.textContent = 'UPI ID कॉपी करें';
-    }, 2000);
-  });
+const copyBtn = document.getElementById('copyBtn');
+
+function fallbackCopy() {
+  const el = document.createElement('textarea');
+  el.value = UPI_ID;
+  el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;';
+  document.body.appendChild(el);
+  el.focus(); el.select();
+  try { document.execCommand('copy'); showCopied(); } catch(e) { showToast('कॉपी नहीं हो सकी।'); }
+  document.body.removeChild(el);
+}
+
+function showCopied() {
+  const icon = document.getElementById('copyIcon');
+  const text = document.getElementById('copyText');
+  copyBtn.classList.add('copied');
+  icon.textContent = '✅';
+  text.textContent = 'कॉपी हो गई!';
+  setTimeout(function(){
+    copyBtn.classList.remove('copied');
+    icon.textContent = '📋';
+    text.textContent = 'UPI ID कॉपी करें';
+  }, 2000);
+}
+
+copyBtn.addEventListener('click', function () {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(UPI_ID).then(function () {
+      showCopied();
+      showToast('UPI ID copied!');
+    }).catch(fallbackCopy);
+  } else {
+    fallbackCopy();
+  }
 });
 
 /* ─── TOAST ─── */
