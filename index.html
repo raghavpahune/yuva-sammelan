@@ -801,6 +801,356 @@ footer {
   .payment-box { padding: 1.5rem 1rem; }
   #info-card { grid-template-columns: 1fr; max-width: 340px; }
 }
+
+/* ══════════════════════════════════════════
+   SKEUOMORPHISM LAYER
+   Physical depth, textures & real-world feel
+   ══════════════════════════════════════════ */
+
+/* ── Subtle noise texture via SVG data URI ── */
+:root {
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+/* ── Body gets a subtle grain on its dark background ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: var(--noise);
+  pointer-events: none;
+  z-index: 0;
+  opacity: .6;
+}
+
+/* ── NAV — brushed dark metal ── */
+#topnav {
+  background: linear-gradient(180deg, #1c2a4a 0%, #111e38 50%, #0d1828 100%);
+  border-bottom: 2px solid;
+  border-image: linear-gradient(90deg, transparent, rgba(232,119,34,.5), rgba(200,151,42,.6), rgba(232,119,34,.5), transparent) 1;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.06) inset,
+    0 -1px 0 rgba(0,0,0,.4) inset,
+    0 4px 16px rgba(0,0,0,.5);
+}
+.nav-links a {
+  border: 1px solid transparent;
+  text-shadow: 0 1px 2px rgba(0,0,0,.6);
+}
+.nav-links a:hover {
+  border: 1px solid rgba(232,119,34,.3);
+  box-shadow: 0 1px 0 rgba(255,255,255,.05) inset, 0 2px 6px rgba(0,0,0,.3);
+}
+
+/* ── CTA BUTTON — raised physical pill ── */
+.cta-btn {
+  background: linear-gradient(180deg, #f49030 0%, #e87722 45%, #c86010 100%);
+  border-top: 1px solid rgba(255,200,120,.45);
+  border-bottom: 2px solid rgba(80,30,0,.6);
+  border-left: 1px solid rgba(200,100,20,.4);
+  border-right: 1px solid rgba(80,30,0,.4);
+  box-shadow:
+    0 1px 0 rgba(255,220,150,.25) inset,
+    0 -1px 0 rgba(0,0,0,.3) inset,
+    0 6px 0 rgba(140,55,0,.7),
+    0 8px 20px rgba(0,0,0,.45);
+  text-shadow: 0 1px 2px rgba(0,0,0,.3);
+  transition: transform .12s, box-shadow .12s;
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 rgba(255,220,150,.25) inset,
+    0 -1px 0 rgba(0,0,0,.3) inset,
+    0 8px 0 rgba(140,55,0,.7),
+    0 12px 28px rgba(0,0,0,.5);
+}
+.cta-btn:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 1px 4px rgba(0,0,0,.4) inset,
+    0 2px 0 rgba(140,55,0,.7),
+    0 2px 6px rgba(0,0,0,.4);
+}
+
+/* ── FLOATING CTA — same raised treatment ── */
+#floatCta a {
+  background: linear-gradient(180deg, #f49030 0%, #e87722 45%, #c86010 100%);
+  border-top: 1px solid rgba(255,200,120,.45);
+  border-bottom: 2px solid rgba(80,30,0,.6);
+  box-shadow:
+    0 1px 0 rgba(255,220,150,.2) inset,
+    0 6px 0 rgba(140,55,0,.65),
+    0 10px 28px rgba(0,0,0,.5);
+  animation: none;
+}
+#floatCta a:active { transform: translateY(4px); }
+
+/* ── EVENT INFO CARD — engraved invitation ── */
+#info-card {
+  background: linear-gradient(160deg, #16264a 0%, #0f1e3a 60%, #0b1628 100%);
+  border: 1px solid rgba(200,151,42,.3);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.05) inset,
+    0 -1px 0 rgba(0,0,0,.4) inset,
+    1px 0 0 rgba(255,255,255,.04) inset,
+    -1px 0 0 rgba(0,0,0,.3) inset,
+    0 16px 48px rgba(0,0,0,.6),
+    0 2px 0 rgba(200,151,42,.15);
+  position: relative;
+  overflow: hidden;
+}
+#info-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--noise);
+  opacity: .5;
+  pointer-events: none;
+}
+.info-label {
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+  letter-spacing: 2px;
+}
+.info-value {
+  text-shadow: 0 1px 4px rgba(0,0,0,.6);
+}
+
+/* ── COUNTDOWN BOXES — mechanical display ── */
+.countdown-box {
+  background: linear-gradient(180deg, #111e38 0%, #0a1220 100%);
+  border-top: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid rgba(0,0,0,.6);
+  border-left: 1px solid rgba(255,255,255,.05);
+  border-right: 1px solid rgba(0,0,0,.4);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.04) inset,
+    0 -2px 0 rgba(0,0,0,.3) inset,
+    0 8px 24px rgba(0,0,0,.5),
+    0 1px 0 rgba(200,151,42,.1);
+}
+.countdown-num {
+  text-shadow:
+    0 0 12px rgba(232,119,34,.8),
+    0 2px 4px rgba(0,0,0,.6);
+}
+
+/* ── BENEFIT CARDS — raised playing cards ── */
+.benefit-card {
+  background:
+    var(--noise),
+    linear-gradient(160deg, #1e2e50 0%, #16244a 50%, #0f1a38 100%);
+  border-top: 1px solid rgba(255,255,255,.1);
+  border-left: 1px solid rgba(255,255,255,.07);
+  border-bottom: 1px solid rgba(0,0,0,.5);
+  border-right: 1px solid rgba(0,0,0,.35);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.06) inset,
+    0 -1px 0 rgba(0,0,0,.35) inset,
+    0 6px 0 rgba(0,0,0,.4),
+    0 10px 30px rgba(0,0,0,.45);
+  border-radius: 14px;
+}
+.benefit-card:hover, .benefit-card.open {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.08) inset,
+    0 -1px 0 rgba(0,0,0,.35) inset,
+    0 4px 0 rgba(0,0,0,.4),
+    0 16px 44px rgba(232,119,34,.22);
+  transform: translateY(-10px) !important;
+}
+.benefit-card:active {
+  transform: translateY(2px) !important;
+  box-shadow:
+    0 1px 6px rgba(0,0,0,.5) inset,
+    0 2px 0 rgba(0,0,0,.4),
+    0 4px 12px rgba(0,0,0,.4) !important;
+}
+.benefit-label {
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+/* ── STEP NUMBERS — embossed coins ── */
+.step-num {
+  background: linear-gradient(145deg, #f4a040 0%, #e87722 40%, #c86010 100%);
+  border-top: 2px solid rgba(255,210,120,.5);
+  border-bottom: 2px solid rgba(80,30,0,.6);
+  box-shadow:
+    0 2px 0 rgba(255,220,140,.3) inset,
+    0 -2px 0 rgba(0,0,0,.35) inset,
+    0 5px 0 rgba(120,45,0,.6),
+    0 8px 20px rgba(0,0,0,.45);
+  text-shadow: 0 1px 3px rgba(0,0,0,.5), 0 -1px 0 rgba(255,200,100,.3);
+}
+
+/* ── QR CARDS — printed card on dark surface ── */
+.qr-card {
+  background:
+    var(--noise),
+    linear-gradient(160deg, #1e2e52 0%, #141e38 100%);
+  border-top: 1px solid rgba(255,255,255,.09);
+  border-left: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid rgba(0,0,0,.55);
+  border-right: 1px solid rgba(0,0,0,.4);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.05) inset,
+    0 10px 0 rgba(0,0,0,.35),
+    0 16px 40px rgba(0,0,0,.55);
+}
+.qr-canvas-wrap {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.9) inset,
+    0 -2px 0 rgba(200,200,200,.5) inset,
+    2px 0 0 rgba(220,220,220,.7) inset,
+    -2px 0 0 rgba(150,150,150,.4) inset,
+    0 6px 0 rgba(0,0,0,.5),
+    0 10px 30px rgba(0,0,0,.5);
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.2);
+}
+.qr-badge {
+  box-shadow:
+    0 1px 0 rgba(255,210,120,.4) inset,
+    0 -1px 0 rgba(0,0,0,.35) inset,
+    0 4px 0 rgba(120,45,0,.5),
+    0 6px 14px rgba(0,0,0,.45);
+  border: 2px solid rgba(255,255,255,.15);
+}
+
+/* ── PAYMENT BOX — leather panel ── */
+.payment-box {
+  background:
+    var(--noise),
+    linear-gradient(160deg, #1a2640 0%, #111c34 60%, #0d1626 100%);
+  border-top: 1px solid rgba(255,255,255,.08);
+  border-bottom: 2px solid rgba(0,0,0,.6);
+  border-left: 1px solid rgba(255,255,255,.05);
+  border-right: 1px solid rgba(0,0,0,.4);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.05) inset,
+    0 -2px 0 rgba(0,0,0,.3) inset,
+    0 12px 0 rgba(0,0,0,.35),
+    0 20px 50px rgba(0,0,0,.6);
+}
+
+/* ── UPI ID BOX — ticket stub ── */
+.upi-id-box {
+  background: linear-gradient(180deg, #0a1220 0%, #060e1a 100%);
+  border: 1px solid rgba(200,151,42,.25);
+  border-top: 1px solid rgba(255,255,255,.06);
+  box-shadow:
+    0 2px 8px rgba(0,0,0,.5) inset,
+    0 -1px 0 rgba(200,151,42,.15);
+  border-radius: 12px;
+}
+.upi-id-val {
+  text-shadow: 0 0 12px rgba(200,151,42,.4), 0 1px 3px rgba(0,0,0,.5);
+}
+
+/* ── COPY BUTTON — physical push button ── */
+.copy-btn {
+  background: linear-gradient(180deg, #24346a 0%, #1a2650 50%, #111c3c 100%);
+  border-top: 1px solid rgba(255,255,255,.14);
+  border-bottom: 2px solid rgba(0,0,0,.6);
+  border-left: 1px solid rgba(255,255,255,.08);
+  border-right: 1px solid rgba(0,0,0,.4);
+  color: var(--saffron);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.07) inset,
+    0 3px 0 rgba(0,0,0,.45),
+    0 5px 14px rgba(0,0,0,.4);
+  transition: transform .1s, box-shadow .1s;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+.copy-btn:hover {
+  background: linear-gradient(180deg, #2c3e7e 0%, #1e2e60 100%);
+  color: var(--saffron-light);
+  transform: translateY(-1px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.1) inset,
+    0 4px 0 rgba(0,0,0,.45),
+    0 8px 18px rgba(0,0,0,.4);
+}
+.copy-btn:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 2px 6px rgba(0,0,0,.5) inset,
+    0 1px 0 rgba(0,0,0,.4);
+}
+.copy-btn.copied {
+  background: linear-gradient(180deg, #2ecc71 0%, #27ae60 50%, #1e8449 100%);
+  border-top-color: rgba(255,255,255,.2);
+  border-bottom-color: rgba(0,60,20,.6);
+  color: #fff;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.15) inset,
+    0 3px 0 rgba(0,60,20,.5),
+    0 5px 14px rgba(0,0,0,.35);
+}
+
+/* ── BADGE 100 — rubber stamp ── */
+.badge-100 {
+  background: linear-gradient(145deg, #f4a040 0%, #e87722 50%, #bf6010 100%);
+  border-top: 1px solid rgba(255,210,130,.5);
+  border-bottom: 2px solid rgba(80,30,0,.5);
+  box-shadow:
+    0 1px 0 rgba(255,220,150,.3) inset,
+    0 3px 0 rgba(120,45,0,.5),
+    0 5px 14px rgba(0,0,0,.4);
+  text-shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+
+/* ── AGE BADGE — embossed tag ── */
+.age-badge {
+  background: linear-gradient(160deg, rgba(232,119,34,.18) 0%, rgba(180,80,10,.1) 100%);
+  border-top: 1px solid rgba(255,160,60,.3);
+  border-bottom: 1px solid rgba(80,30,0,.4);
+  box-shadow:
+    0 1px 0 rgba(255,180,80,.1) inset,
+    0 2px 8px rgba(0,0,0,.35);
+  text-shadow: 0 1px 3px rgba(0,0,0,.4);
+}
+
+/* ── FOOTER CHIPS — engraved chips ── */
+.chip {
+  background: linear-gradient(180deg, rgba(232,119,34,.12) 0%, rgba(100,40,0,.1) 100%);
+  border-top: 1px solid rgba(232,119,34,.3);
+  border-bottom: 1px solid rgba(0,0,0,.4);
+  box-shadow:
+    0 1px 0 rgba(255,180,80,.08) inset,
+    0 2px 8px rgba(0,0,0,.3);
+  text-shadow: 0 1px 3px rgba(0,0,0,.4);
+}
+
+/* ── WHATSAPP BUTTON ── */
+.wa-btn {
+  background: linear-gradient(180deg, #2edc74 0%, #25d366 40%, #1aa84f 100%);
+  border-top: 1px solid rgba(255,255,255,.25);
+  border-bottom: 2px solid rgba(0,60,20,.6);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.15) inset,
+    0 4px 0 rgba(0,60,20,.5),
+    0 6px 18px rgba(0,0,0,.4);
+}
+.wa-btn:active { transform: translateY(3px); }
+
+/* ── SECTION TITLES — engraved look ── */
+.section-title {
+  text-shadow:
+    0 1px 3px rgba(0,0,0,.6),
+    0 -1px 0 rgba(255,180,80,.15);
+}
+
+/* ── EMBLEM — medal/coin ── */
+.emblem {
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,.6)) drop-shadow(0 2px 4px rgba(200,151,42,.3));
+}
+.emblem-center {
+  text-shadow:
+    0 0 20px rgba(232,119,34,.7),
+    0 2px 6px rgba(0,0,0,.6),
+    0 -1px 0 rgba(255,200,100,.3);
+}
 </style>
 </head>
 <body>
