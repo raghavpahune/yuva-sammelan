@@ -1964,6 +1964,392 @@ body::before {
     -2px -2px 6px rgba(255,160,40,.18),
     0 1px 0 rgba(255,220,120,.25) inset;
 }
+
+/* ══════════════════════════════════════════════
+   GLASSMORPHISM LAYER
+   Frosted glass surfaces, blur tint & depth
+   ══════════════════════════════════════════════
+   Rules:
+   • backdrop-filter: blur() — frosted glass on top of gradients/particles
+   • background: rgba(white or navy, low opacity) — tinted glass pane
+   • border: 1px solid rgba(255,255,255,.12-.2) — frosted rim
+   • Layered box-shadow for glass depth + inner rim glow
+   ══════════════════════════════════════════════ */
+
+/* ─── NAV — floating frosted glass bar ─── */
+#topnav {
+  background: rgba(15, 28, 60, 0.55);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.08) inset,
+    0 8px 32px rgba(0,0,0,.45);
+}
+.nav-links a {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: none;
+  transition: background .2s, border-color .2s, color .2s;
+}
+.nav-links a:hover {
+  background: rgba(232,119,34,.18);
+  border-color: rgba(232,119,34,.4);
+  box-shadow: 0 0 14px rgba(232,119,34,.15);
+  color: #ffca60;
+}
+
+/* ─── FLOATING CTA — glass pill ─── */
+#floatCta a {
+  background: linear-gradient(135deg,
+    rgba(244,160,48,.85) 0%, rgba(232,119,34,.9) 50%, rgba(192,96,16,.85) 100%);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255,220,140,.35);
+  box-shadow:
+    0 1px 0 rgba(255,230,160,.3) inset,
+    0 8px 32px rgba(232,119,34,.4),
+    0 2px 0 rgba(0,0,0,.2);
+  animation: none; top: 0;
+}
+
+/* ─── CTA BUTTON — glass pill ─── */
+.cta-btn {
+  background: linear-gradient(135deg,
+    rgba(255,176,64,.9) 0%, rgba(232,119,34,.92) 50%, rgba(192,96,16,.88) 100%);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid rgba(255,220,130,.35);
+  box-shadow:
+    0 1px 0 rgba(255,230,150,.35) inset,
+    0 8px 28px rgba(232,119,34,.4),
+    0 2px 12px rgba(0,0,0,.3);
+  top: 0;
+  transition: top .12s, box-shadow .12s;
+}
+.cta-btn:hover {
+  top: -3px;
+  box-shadow:
+    0 1px 0 rgba(255,230,150,.35) inset,
+    0 12px 36px rgba(232,119,34,.55),
+    0 4px 16px rgba(0,0,0,.35);
+}
+.cta-btn:active {
+  top: 2px;
+  box-shadow:
+    0 2px 8px rgba(0,0,0,.4) inset,
+    0 4px 16px rgba(232,119,34,.3);
+}
+
+/* ─── EVENT INFO CARD — frosted glass invitation ─── */
+#info-card {
+  background: rgba(20, 40, 90, 0.45);
+  backdrop-filter: blur(28px) saturate(150%);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  border: 1px solid rgba(255,255,255,.12);
+  border-top: 1px solid rgba(255,255,255,.2);
+  border-left: 1px solid rgba(255,255,255,.15);
+  border-radius: 24px;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.1) inset,
+    0 20px 60px rgba(0,0,0,.5),
+    0 0 0 1px rgba(255,255,255,.04);
+}
+#info-card::before { display: none; }
+#info-card::after  { display: none; }
+.info-label { color: rgba(200,151,42,.8); letter-spacing: 2.5px; }
+.info-value { text-shadow: 0 1px 6px rgba(0,0,0,.5); }
+
+/* ─── COUNTDOWN BOXES — glass display panels ─── */
+.countdown-box {
+  background: rgba(8, 15, 35, 0.55);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(255,255,255,.1);
+  border-top: 1px solid rgba(255,255,255,.18);
+  border-radius: 16px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.08) inset,
+    0 12px 40px rgba(0,0,0,.5);
+}
+.countdown-box::before { display: none; }
+.countdown-num {
+  font-family: var(--font-en);
+  letter-spacing: 2px;
+  text-shadow:
+    0 0 20px rgba(232,119,34,1),
+    0 0 50px rgba(232,119,34,.55),
+    0 1px 4px rgba(0,0,0,.6);
+}
+
+/* ─── BENEFIT CARDS — frosted glass tiles ─── */
+.benefit-card {
+  background: rgba(26, 45, 90, 0.38);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255,255,255,.1);
+  border-top: 1px solid rgba(255,255,255,.18);
+  border-left: 1px solid rgba(255,255,255,.13);
+  border-radius: 20px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.08) inset,
+    0 10px 40px rgba(0,0,0,.4);
+}
+.benefit-card::after { display: none; }
+.benefit-card:hover, .benefit-card.open {
+  background: rgba(26, 45, 90, 0.55) !important;
+  border-color: rgba(232,119,34,.45) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.1) inset,
+    0 20px 60px rgba(232,119,34,.2),
+    0 0 0 1px rgba(232,119,34,.2) !important;
+  transform: translateY(-10px) !important;
+}
+.benefit-card:active {
+  background: rgba(10, 20, 50, 0.6) !important;
+  transform: translateY(0) !important;
+  box-shadow:
+    0 2px 12px rgba(0,0,0,.5) inset,
+    0 4px 16px rgba(0,0,0,.3) !important;
+}
+
+/* ─── REGISTRATION STEPS — glass step numbers ─── */
+.step-num {
+  background: linear-gradient(135deg,
+    rgba(255,176,64,.85) 0%, rgba(232,119,34,.9) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,220,130,.4);
+  box-shadow:
+    0 1px 0 rgba(255,240,180,.3) inset,
+    0 8px 24px rgba(232,119,34,.4),
+    0 2px 8px rgba(0,0,0,.3);
+}
+
+/* ─── QR CARDS — frosted glass panels ─── */
+.qr-card {
+  background: rgba(18, 28, 65, 0.42);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid rgba(255,255,255,.1);
+  border-top: 1px solid rgba(255,255,255,.2);
+  border-left: 1px solid rgba(255,255,255,.14);
+  border-radius: 24px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.08) inset,
+    0 16px 50px rgba(0,0,0,.5);
+}
+
+/* ─── QR WHITE PAPER — clean glass frame ─── */
+.qr-canvas-wrap {
+  background: #fff;
+  border: none;
+  border-radius: 12px;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.95) inset,
+    0 8px 24px rgba(0,0,0,.45);
+}
+
+/* ─── QR BADGE — glass dot ─── */
+.qr-badge {
+  background: linear-gradient(135deg,
+    rgba(244,160,48,.9), rgba(200,151,42,.9));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,220,130,.35);
+  box-shadow:
+    0 1px 0 rgba(255,230,160,.3) inset,
+    0 4px 14px rgba(232,119,34,.4);
+}
+
+/* ─── PAYMENT BOX — deep frosted glass panel ─── */
+.payment-box {
+  background: rgba(18, 30, 65, 0.48);
+  backdrop-filter: blur(30px) saturate(160%);
+  -webkit-backdrop-filter: blur(30px) saturate(160%);
+  border: 1px solid rgba(255,255,255,.1);
+  border-top: 1px solid rgba(255,255,255,.2);
+  border-left: 1px solid rgba(255,255,255,.14);
+  border-radius: 28px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.08) inset,
+    0 24px 70px rgba(0,0,0,.55);
+}
+.payment-box::before {
+  border: 1px dashed rgba(200,151,42,.18);
+  inset: 14px;
+}
+
+/* ─── UPI ID BOX — frosted inset well ─── */
+.upi-id-box {
+  background: rgba(0, 8, 25, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(200,151,42,.25);
+  border-radius: 14px;
+  box-shadow:
+    0 2px 12px rgba(0,0,0,.5) inset,
+    0 1px 0 rgba(200,151,42,.1);
+}
+.upi-id-val {
+  text-shadow:
+    0 0 20px rgba(200,151,42,.7),
+    0 0 40px rgba(200,151,42,.3);
+}
+
+/* ─── COPY BUTTON — glass button ─── */
+.copy-btn {
+  background: rgba(30, 50, 110, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.1);
+  border-top: 1px solid rgba(255,255,255,.18);
+  border-radius: 10px;
+  color: var(--saffron);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.07) inset,
+    0 4px 18px rgba(0,0,0,.35);
+  top: 0;
+  transition: top .1s, box-shadow .15s, background .15s;
+}
+.copy-btn:hover {
+  background: rgba(40, 65, 140, 0.6);
+  border-color: rgba(232,119,34,.35);
+  color: #ffca60;
+  top: -2px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.1) inset,
+    0 8px 28px rgba(0,0,0,.4),
+    0 0 14px rgba(232,119,34,.15);
+}
+.copy-btn:active {
+  top: 1px;
+  background: rgba(10, 18, 45, 0.65);
+  box-shadow: 0 2px 10px rgba(0,0,0,.5) inset;
+}
+.copy-btn.copied {
+  background: rgba(15, 60, 35, 0.6);
+  border-color: rgba(80,220,120,.3);
+  color: #4ade80;
+  box-shadow:
+    0 1px 0 rgba(100,255,160,.08) inset,
+    0 0 20px rgba(39,174,96,.25);
+}
+
+/* ─── ABOUT TEXT — frosted reading panel ─── */
+.about-text {
+  background: rgba(20, 38, 80, 0.4);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(255,255,255,.1);
+  border-top: 1px solid rgba(255,255,255,.18);
+  border-radius: 18px;
+  padding: 1.8rem 2rem;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.07) inset,
+    0 12px 40px rgba(0,0,0,.4);
+}
+
+/* ─── EMBLEM — glass disc ─── */
+.emblem {
+  filter: none;
+  width: 170px; height: 170px;
+  background: rgba(18, 32, 70, 0.5);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(255,255,255,.1);
+  border-top: 1px solid rgba(255,255,255,.2);
+  border-radius: 50%;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.08) inset,
+    0 16px 50px rgba(0,0,0,.55),
+    0 0 40px rgba(200,151,42,.15);
+}
+
+/* ─── BADGE-100 — glass gold pill ─── */
+.badge-100 {
+  background: linear-gradient(135deg,
+    rgba(255,202,96,.88) 0%, rgba(232,119,34,.9) 60%, rgba(184,94,0,.85) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,220,130,.4);
+  box-shadow:
+    0 1px 0 rgba(255,240,180,.35) inset,
+    0 6px 20px rgba(232,119,34,.4);
+}
+
+/* ─── AGE BADGE — frosted pill ─── */
+.age-badge {
+  background: rgba(30, 50, 110, 0.38);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(232,119,34,.3);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.06) inset,
+    0 4px 16px rgba(0,0,0,.3);
+}
+
+/* ─── FOOTER — frosted glass footer ─── */
+footer {
+  background: rgba(10, 18, 40, 0.72);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+/* ─── FOOTER CHIPS — glass chips ─── */
+.chip {
+  background: rgba(232,119,34,.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(232,119,34,.28);
+  box-shadow: 0 1px 0 rgba(255,255,255,.05) inset, 0 4px 12px rgba(0,0,0,.3);
+}
+
+/* ─── WHATSAPP BUTTON — glass green ─── */
+.wa-btn {
+  background: linear-gradient(135deg,
+    rgba(46,220,116,.88) 0%, rgba(37,211,102,.9) 50%, rgba(26,168,79,.85) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.2);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.2) inset,
+    0 6px 22px rgba(37,211,102,.35);
+  top: 0; transition: top .1s, box-shadow .12s;
+}
+.wa-btn:hover { top: -2px; box-shadow: 0 1px 0 rgba(255,255,255,.2) inset, 0 10px 32px rgba(37,211,102,.45); }
+.wa-btn:active { top: 2px; }
+
+/* ─── BACK TO TOP BUTTON — glass saffron outline ─── */
+.share-btn {
+  background: rgba(232,119,34,.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(232,119,34,.35);
+  box-shadow: 0 1px 0 rgba(255,180,80,.06) inset, 0 4px 16px rgba(0,0,0,.3);
+  top: 0; transition: top .1s, box-shadow .12s;
+}
+.share-btn:hover { top: -2px; box-shadow: 0 0 20px rgba(232,119,34,.2); }
+.share-btn:active { top: 2px; }
+
+/* ─── TOAST — frosted pill ─── */
+.toast {
+  background: rgba(232,119,34,.88);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255,220,140,.4);
+  box-shadow: 0 1px 0 rgba(255,230,160,.3) inset, 0 8px 28px rgba(0,0,0,.4);
+}
+
+/* ─── SECTION TITLE GLOW ─── */
+.section-title {
+  text-shadow:
+    0 0 40px rgba(232,119,34,.5),
+    0 2px 8px rgba(0,0,0,.5);
+}
 </style>
 </head>
 <body>
